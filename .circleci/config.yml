@@ -14,6 +14,19 @@ jobs:
     steps:
       - checkout
       - install_deps
+  package:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - install_deps
+      - run:
+          name: Package
+          command: |
+            cd src && npm pack
+      - store_artifacts:
+          path: ./simpletodoapp-1.0.0.tgz
+          destination: simpletodoapp-1.0.0.tgz
 
 workflows:
   build-and-packge:
